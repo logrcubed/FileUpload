@@ -39,12 +39,12 @@ namespace FileUpload
 
             Image im = Image.FromFile("C:\\Users\\trilok.rangan\\Desktop\\RPi\\Images\\Source\\001.jpg");
             bytearray = imageToByteArray(im);
-            
 
-            string baseAddress = "http://localhost:8000/Service/FileUpload/";
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(baseAddress + name);
+
+            Uri baseAddress = new Uri("http://localhost:7635/ImageUploadService/FileUpload");
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(baseAddress);
             request.Method = "POST";
-            request.ContentType = "text/plain";
+            request.ContentType = "text/xml; charset=utf-8";
             request.ContentLength = bytearray.Length;
            
             Stream serverStream = request.GetRequestStream();
@@ -54,7 +54,6 @@ namespace FileUpload
             {
                 int statusCode = (int)response.StatusCode;
                 StreamReader reader = new StreamReader(response.GetResponseStream());
-
             }
 
         }
